@@ -1,5 +1,7 @@
 import json
 
+
+# Variables iniciales
 with open('virus.json') as f:
 	data = json.load(f)
 inputs = data[0]
