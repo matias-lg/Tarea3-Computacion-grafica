@@ -8,7 +8,7 @@ from OpenGL.GL import *
 import OpenGL.GL.shaders
 import numpy as np
 from PIL import Image
-import basic_shapes as bs
+#import basic_shapes as bs
 
 
 # We will use 32 bits data, so we have 4 bytes
@@ -57,7 +57,7 @@ def textureSimpleSetup(texture, imgName, wrapMode, filterMode):
 
 
 def toGPUShape(shape, wrapMode=None, filterMode=None):
-    assert isinstance(shape, bs.Shape)
+    #assert isinstance(shape, bs.Shape)
 
     vertexData = np.array(shape.vertices, dtype=np.float32)
     indices = np.array(shape.indices, dtype=np.uint32)

@@ -3,16 +3,70 @@ from OpenGL.GL import *
 import OpenGL.GL.shaders
 import numpy as np
 import sys
-import modelos
-import lib.basic_shapes as bs
-import lib.easy_shaders as es 
-import lib.lightning_shaders as ls 
-import lib.scene_graph2 as sg 
-import transformations2 as tr 
+import json
+from modelos import *
+import basic_shapes as bs
+import easy_shaders as es 
+import scene_graph2 as sg 
+import transformations2 as tr
+def on_key(window, key, scancode, action, mods):
+
+    if action != glfw.PRESS:
+        return
+    
+    global controller
+
+    if key == glfw.KEY_SPACE:
+        controller.fillPolygon = not controller.fillPolygon
+
+    elif key == glfw.KEY_ESCAPE:
+        sys.exit()
+
+    else:
+        print('Unknown key')
+
+# obtener data 
+with open("virus.json") as f:
+    data = json.load(f)
+inputs = data[0]
+radius = inputs['Radius']
+cont_prob = inputs['Contagious_prob']
+death_rate = inputs['Death_rate']
+poblacion = inputs['Initial_population']
+heal_days = inputs['Days_to_heal']
+cnt = 0
+dia = 0
+sim = Simulator(radius, cont_prob, death_rate, poblacion, heal_days)
+dias = []
+normales = []
+contagios = []
+recuperados = []
+muertos = []
+print('Simulando...')
+while True:
+    #  graficar
+    sanos = sim._sim.getPositions()
+    enfermos = sim._sim.getInfectedPositions()
+    # Simulamos el dia actual
+    data = sim.Simulate()
+    # actualiza arreglos para el otro grafico
+    dia += 1
+    dias.append(dia)
+    normales.append(data[3])
+    contagios.append(data[4])
+    recuperados.append(data[5])
+    muertos.append(data[6])
+    # actualizamos posiciones / estados
+    sim._sim.update()
+    # informacion en consola
+    if len(enfermos) == 0:
+        cnt += 1
+    if cnt > heal_days + 1:
+        break
 
 if __name__ == '__main__':
 
-    # Initialize glfw
+    # Initialize glfw  
     if not glfw.init():
         sys.exit()
 
