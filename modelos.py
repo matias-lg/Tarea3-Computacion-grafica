@@ -10,8 +10,10 @@ class Person(object):
 
     def getPos(self):
         return self._pos
-
+    # movemos a las personas aleatoriamente
     def move(self):
+        oldx = self._pos[0]
+        oldy = self._pos[1]
         if random.random() >= 0.5:
             self._pos[0] += random.uniform(0.01, 0.08)
         else:
@@ -20,6 +22,12 @@ class Person(object):
             self._pos[1] += random.uniform(0.01, 0.08)
         else:
             self._pos[1] -= random.uniform(0.01, 0.08)
+        # Personas deben estar dentro del cuadrado [0,1]x[0,1]
+        if not (0 <= self._pos[0] <= 1 and 0 <= self._pos[1] <= 1):
+            self._pos[0] = oldx
+            self._pos[1] = oldy
+            self.move()
+
 
     def isInfected(self):
         return self._infected
@@ -80,6 +88,7 @@ class PersonGenerator(object):
             #     self._inmune_positions.append(person.getPos())
             else:
                 self._positions.append(person.getPos())
+        return [self._positions, self._infecteds_positions]
 
     def getPeople(self):
         return self._people
