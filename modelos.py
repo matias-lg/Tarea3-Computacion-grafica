@@ -23,7 +23,7 @@ class Person(object):
         else:
             self._pos[1] -= random.uniform(0.01, 0.08)
         # Personas deben estar dentro del cuadrado [0,1]x[0,1]
-        if not (0 <= self._pos[0] <= 1 and 0 <= self._pos[1] <= 1):
+        if not (0 <= self._pos[0] <= 0.974 and 0 <= self._pos[1] <= 0.974):
             self._pos[0] = oldx
             self._pos[1] = oldy
             self.move()
