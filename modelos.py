@@ -1,6 +1,6 @@
 import random
 import numpy as np
-
+# Persona, cada punto individual del grafico
 class Person(object):
     def __init__(self):
         self._pos = [random.random(), random.random()]
@@ -55,7 +55,7 @@ class Person(object):
         self._infected = False
         self._inmune = True
 
-
+# Esta clase se encarga de generar a las personas y actualizar sus posiciones y estados
 class PersonGenerator(object):
     def __init__(self):
         self._people = []
@@ -77,15 +77,12 @@ class PersonGenerator(object):
         self._infected_people = []
         self._positions = []
         self._infecteds_positions = []
-        #self._inmune_positions = []
         for person in self._people:
             if person.isDead():
                 pass
             elif person.isInfected() and not person.isDead():
                 self._infected_people.append(person)
                 self._infecteds_positions.append(person.getPos())
-            # elif person.isInmune():
-            #     self._inmune_positions.append(person.getPos())
             else:
                 self._positions.append(person.getPos())
         return [self._positions, self._infecteds_positions]
@@ -116,7 +113,7 @@ class PersonGenerator(object):
         person.infect()
         self._infecteds_positions.append(person.getPos())
 
-
+# Realiza la simulacion del virus dados los parametros
 class Simulator(object):
     def __init__(self, Radius, Contagious_prob, Death_rate, Initial_population, Days_to_heal):
         self._sim = PersonGenerator()
@@ -131,7 +128,7 @@ class Simulator(object):
         self._normal_count = Initial_population - 1
         self._death_count = 0
         self._healed_count = 0
-
+    # Realiza la simulacion, retorna toda la informacion necesaria para realizar los graficos 
     def Simulate(self):
         infected_count_HOY = 0
         healed_count_HOY = 0
