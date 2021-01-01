@@ -1,2 +1,5 @@
-# Tarea3
-Simulación de virus - Computación gráfica
+
+## Tarea3
+#Simulación de virus
+
+correr con `python pandemic_simulator.py virus.json`
