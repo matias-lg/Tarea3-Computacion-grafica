@@ -214,6 +214,7 @@ bgl.on_clicked(callback.showGL)
 
 bfinal = Button(axf, 'Acumulado final')
 bfinal.on_clicked(callback.grafoFinal)
-
+# Mostrar
+print("Dia 0")
 plt.close(1)
 plt.show()
